@@ -1,0 +1,90 @@
+/* src/styles/shop.css */
+
+.shop-container {
+    padding: 40px 5%;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .shop-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  
+  .product-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+    text-align: center;
+    transition: box-shadow 0.3s;
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+  
+  .product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .category {
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+  
+  .product-card button {
+    background-color: #000;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .product-card button:hover {
+    background-color: #444;
+  }
+  
+  .cart {
+    margin-top: 50px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+  
+  .cart ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .cart li button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  

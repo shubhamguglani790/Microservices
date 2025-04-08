@@ -118,6 +118,7 @@ function Orders() {
                   <strong>Price:</strong> ₹{order.price}<br />
                   <strong>Order Value:</strong> ₹{order.orderValue}
                 </p>
+
                 <div className="d-flex justify-content-between">
                   <button className="btn btn-sm btn-outline-primary" onClick={() => handleEdit(order)}>Edit</button>
                   <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(order._id)}>Delete</button>

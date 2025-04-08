@@ -1,0 +1,59 @@
+/* src/components/CartDrawer.css */
+.cart-drawer {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cart-drawer.open {
+    right: 0;
+  }
+  
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #f7f7f7;
+  }
+  
+  .cart-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .cart-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart-body li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  
+  .cart-body button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: red;
+    cursor: pointer;
+  }
+  
+  .cart-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+  }
+  

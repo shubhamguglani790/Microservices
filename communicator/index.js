@@ -3,8 +3,14 @@ const axios = require('axios');
 const app = express();
 const PORT = 3003;
 
-
+const multer = require('multer');
+const FormData = require('form-data');
+const fs = require('fs');
+const ORDER_SERVICE_URL = "http://localhost:5000";
+const upload = multer({ dest: 'temp/' }); // t
+const AUTH_SERVICE_URL = "http://localhost:5003";
 const cors = require('cors');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -49,47 +55,72 @@ app.get('/products', async (req, res) => {
     const response = await axios.get('http://localhost:5002/products');
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error fetching products:", error.response ? error.response.data : error.message);
+    console.error("❌ Error fetching products:", error.message);
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
 
+
 //Adding product
 
-app.post('/products/add', async (req, res) => {
+app.post('/products/add', upload.single('image'), async (req, res) => {
   try {
-    const response = await axios.post('http://localhost:5002/products/add', req.body);
+    const form = new FormData();
+    for (const key in req.body) {
+      form.append(key, req.body[key]);
+    }
+    if (req.file) {
+      form.append('image', fs.createReadStream(req.file.path), req.file.originalname);
+    }
+
+    const response = await axios.post('http://localhost:5002/products/add', form, {
+      headers: form.getHeaders(),
+    });
+
+    if (req.file) fs.unlinkSync(req.file.path); // Clean up temp file
     res.status(201).json(response.data);
-  }
-  catch (error) {
-    console.error("Error adding product:", error.response ? error.response.data : error.message);
+  } catch (error) {
+    console.error("❌ Error adding product:", error.response?.data || error.message);
     res.status(500).json({ error: "Failed to add product" });
   }
 });
 
 //deleting product
 
-app.delete("/products/delete", async (req, res) => {
+app.delete('/products/delete', async (req, res) => {
   try {
-    const response = await axios.delete("http://localhost:5002/products/delete", {
-      data: req.body
+    const response = await axios.delete('http://localhost:5002/products/delete', {
+      data: req.body, // { _id: '...' }
     });
-    res.json(response.data);
+    res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error deleting product:", error.response?.data || error.message);
+    console.error("❌ Error deleting product:", error.response?.data || error.message);
     res.status(500).json({ error: "Failed to delete product" });
   }
 });
 
 
+
 //updating product
 
-app.put('/products/update', async (req, res) => {
+app.put('/products/update', upload.single('image'), async (req, res) => {
   try {
-    const response = await axios.put('http://localhost:5002/products/update', req.body);
+    const form = new FormData();
+    for (const key in req.body) {
+      form.append(key, req.body[key]);
+    }
+    if (req.file) {
+      form.append('image', fs.createReadStream(req.file.path), req.file.originalname);
+    }
+
+    const response = await axios.put('http://localhost:5002/products/update', form, {
+      headers: form.getHeaders(),
+    });
+
+    if (req.file) fs.unlinkSync(req.file.path);
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error updating product:", error.response ? error.response.data : error.message);
+    console.error("❌ Error updating product:", error.response?.data || error.message);
     res.status(500).json({ error: "Failed to update product" });
   }
 });
@@ -191,6 +222,43 @@ app.delete("/users/delete", async (req, res) => {
   }
 });
 
+
+
+
+// Forward POST request to /orders
+app.post("/orders", async (req, res) => {
+  try {
+    const response = await axios.post(`${ORDER_SERVICE_URL}/orders/add`, req.body);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error forwarding order:", error.message);
+    res.status(500).json({ error: "Failed to forward order request" });
+  }
+});
+
+// Register route
+app.post('/auth/register', async (req, res) => {
+  try {
+    const response = await axios.post(`${AUTH_SERVICE_URL}/register`, req.body);
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data?.error || "Registration failed",
+    });
+  }
+});
+
+// Login route
+app.post('/auth/login', async (req, res) => {
+  try {
+    const response = await axios.post(`${AUTH_SERVICE_URL}/login`, req.body);
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data?.error || "Login failed",
+    });
+  }
+});
 
 
 //server running

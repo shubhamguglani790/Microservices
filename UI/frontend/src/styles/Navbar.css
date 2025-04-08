@@ -1,0 +1,97 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fdfbf6;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  .navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e1e1e;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-links li a {
+    text-decoration: none;
+    color: #1e1e1e;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+    position: relative;
+  }
+  
+  .navbar-links li a:hover,
+  .navbar-links li a.active {
+    border-bottom: 2px solid #1e1e1e;
+  }
+  
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .icon {
+    font-size: 20px;
+    color: #1e1e1e;
+    cursor: pointer;
+  }
+  
+  .cart-icon {
+    position: relative;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+  .navbar-user-info {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.username {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f;
+}
+
+.navbar-auth-links a {
+    margin-left: 10px;
+}

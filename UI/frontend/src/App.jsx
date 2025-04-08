@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Users from './components/Users';
 import Orders from './components/Orders';
-import Products from './components/Products';
+import Products from './components/AddProducts';
 
 function App() {
     return (
@@ -11,7 +11,7 @@ function App() {
             <Users />
             <Orders />
             <Products />
-            
+
         </div>
     );
 }
